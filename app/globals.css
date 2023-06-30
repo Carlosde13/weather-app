@@ -8,3 +8,6 @@
 .material-symbols-outlined{
     color: white
 }
+.bi:hover{
+    cursor: pointer;
+}

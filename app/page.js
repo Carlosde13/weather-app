@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import styles from './page.module.css'
 import TodayInfo from '@/components/todayInfo/TodayInfo';
+import Buscador from '@/components/buscador/Buscador';
 
 export default function Home() {
 
@@ -51,7 +52,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       {
-        loading ? <h1>Loading... </h1> : <TodayInfo info={info} fecha={date}/>
+        loading ? <h1>Loading... </h1> : <Buscador info={info} fecha={date}/>
       }
     </main>
   )
