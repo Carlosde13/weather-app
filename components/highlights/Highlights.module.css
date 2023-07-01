@@ -1,0 +1,165 @@
+.contenedor{
+    height: 100vh;
+    width: 100%;
+    background-color: #100E1D;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10px
+}
+.contenedorAdentro{
+    height: 100vh;
+    width: 100%;
+    background-color: #100E1D;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10px
+}
+.title{
+    width: 90%;
+
+}
+.title >h2{
+    color: #E7E7EB;
+    font-size: 24px;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 700;
+}
+.wind{
+    background-color: #1E213A;
+    width: 90%;
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.wind >h4{
+    color: #E7E7EB;
+    text-align: center;
+    font-size: 16px;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 500;
+}
+.windResults{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px
+}
+.windResults >h3{
+    color: #E7E7EB;
+    font-size: 50px;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 700;
+}
+.windResults >p{
+    color: #E7E7EB;
+    font-size: 30px;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 500;
+}
+.navigationIconDiv{
+    width: 25px;
+    height: 25px;
+    background-color: gray;
+    border: none;
+    outline: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.windResults >h4{
+    color: #E7E7EB;
+    font-size: 14px;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 500;
+}
+.barraPorcentajeDiv{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+.numeros{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+.small{
+    color: #A09FB1;
+    text-align: center;
+    font-size: 12px;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 700;
+}
+.contenedorBarras{
+    width: 100%;
+    height: 5px;
+    position: relative;
+}
+.barraReferencia{
+    width: 100%;
+    height: 5px;
+    background-color: #E7E7EB;
+    border-radius: 2px;
+}
+.barraPorcentaje{
+    height: 5px;
+    background-color: #FFEC65;
+    border-radius: 2px;
+    position: absolute;
+  top: 0;
+  left: 0;
+}
+.porcentaje{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+@media screen and (min-width: 768px){
+    .title{
+        width: 80%;
+        padding-left: 5%;
+        padding-top: 2%;
+    }
+    .contenedor{
+        height: 60vh;
+        width: 75%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        gap: 10px
+    }
+    .contenedorAdentro{
+        height: 60vh;
+        width: 80%;
+        background-color: #100E1D;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 7px
+    }
+    .wind{
+        width: 40%;
+        height: 20vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+}

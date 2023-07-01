@@ -2,6 +2,7 @@ import styles from "./Buscador.module.css";
 import TodayInfo from "../todayInfo/TodayInfo";
 import { useState } from "react";
 import Image from "next/image";
+import Highlights from "../highlights/Highlights";
 
 function CloseIcon() {
   return (
@@ -84,7 +85,7 @@ export default function Buscador({info, fecha}) {
     if(mostrarBuscador==true) clase = styles.buscador;
     if(mostrarBuscador==false) clase= styles.buscadorOculto 
   return (
-    <>
+    <div className={styles.cp}>
       <div className={clase}>
         <div className={styles.contenedorX} onClick={SearchForPlacesButtons}>
           <CloseIcon />
@@ -137,6 +138,7 @@ export default function Buscador({info, fecha}) {
                 </div>
             </div>
         </div>
-    </>
+        <Highlights info={info}/>
+    </div>
   );
 }

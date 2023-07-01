@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import styles from './page.module.css'
 import TodayInfo from '@/components/todayInfo/TodayInfo';
 import Buscador from '@/components/buscador/Buscador';
+import Highlights from '@/components/highlights/Highlights';
 
 export default function Home() {
 

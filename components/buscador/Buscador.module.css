@@ -1,3 +1,9 @@
+.cp{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 .buscador{
     width: 100%;
     height: 100vh;
@@ -257,5 +263,11 @@
         color: #1E213A;
         background: #E7E7EB;
         cursor: pointer;
+    }
+    .cp{
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: row;
     }
 }
