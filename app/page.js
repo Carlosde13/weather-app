@@ -9,8 +9,8 @@ import Highlights from '@/components/highlights/Highlights';
 export default function Home() {
 
   const [info, setInfo]= useState(null);
-  const [temp, setTemp] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [prediccion, setPrediccion] = useState (null);
   let lon;
   let lat;
 
@@ -24,8 +24,19 @@ export default function Home() {
       .then(response => response.json())
       .then(data => {
         setInfo(data);
-        setTemp(Math.round(data.main.temp));
         setLoading(false);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
+  function getPrediccion(lat, lon){
+    const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=1cbc475882bc69fbb7d7227a36f4f93c`
+
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        setPrediccion(data);
       })
       .catch(error => {
         console.log(error);
@@ -41,6 +52,7 @@ export default function Home() {
 
         console.log(`LON: ${lon}, LAT: ${lat}`)
         getInfo(lat, lon);
+        getPrediccion(lat, lon)
       })
     }
   }, [])
@@ -48,9 +60,9 @@ export default function Home() {
   useEffect(() => {
     // Acciones a realizar después de que 'info' se haya actualizado
     console.log(info);
-    console.log(`${temp} °C`);
     console.log(loading);
-  }, [info, temp]) // Agrega 'info' y 'temp' como dependencias
+    console.log(prediccion);
+  }, [info, prediccion]) // Agrega 'info' ' como dependencia
 
   return (
     <main className={styles.main}>
