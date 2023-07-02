@@ -66,7 +66,10 @@ function LocationIcon(){
 
 
 export default function Buscador({info, fecha}) {
-  const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat'];
+
+
+    //Sirve para mostrar la informacion del buscador y todayInfo
+    const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat'];
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     const [mostrarBuscador, setMostrarBuscador] = useState(false);
