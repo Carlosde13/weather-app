@@ -84,6 +84,21 @@ export default function Buscador({info, fecha}) {
     let clase;
     if(mostrarBuscador==true) clase = styles.buscador;
     if(mostrarBuscador==false) clase= styles.buscadorOculto 
+
+    let imagenClima = "/LightCloud.png";
+    let descripcionClima = info.weather[0].main;
+
+    if(descripcionClima == "Clear") imagenClima = "/Clear.png"
+    if(descripcionClima == "Clouds") imagenClima = "/HeavyCloud.png"
+    if(descripcionClima == "Rain") imagenClima = "/LightRain.png"
+    if(descripcionClima == "Drizzle") imagenClima = "/Shower.png"
+    if(descripcionClima == "Thunderstorm") imagenClima = "/Thunderstorm.png"
+    if(descripcionClima == "Snow") imagenClima = "/Snow.png"
+    if(descripcionClima == "Mist") imagenClima = "/Mist.png"
+    if(descripcionClima == "Smoke") imagenClima = "/Smoke1.png"
+    if(descripcionClima == "Haze") imagenClima = "/Haze.png"
+    if(descripcionClima == "Dust") imagenClima = "/Dust1.png"
+    
   return (
     <div className={styles.cp}>
       <div className={clase}>
@@ -121,14 +136,14 @@ export default function Buscador({info, fecha}) {
                 </div>
             </div>
             <div className={styles.iconoPronosticoDiv}>
-                <Image src='/LightRain.png' width={150} height={174} alt="weather pronostic icon" />
+                <Image src={imagenClima} width={150} height={150} alt="weather pronostic icon" />
             </div>
             <div className={styles.temperatura}>
                 <div>
                     <h2>{Math.round(info.main.temp)}</h2>
                     <h3>°C</h3>
                 </div>
-                <h3>{info.weather[0].main}</h3>
+                <h3>{descripcionClima}</h3>
             </div>
             <div className={styles.lugarFecha}>
                 <h4>Today · {weekdays[dia]}. {noDia} {months[mes]}</h4>

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import styles from './page.module.css'
 import TodayInfo from '@/components/todayInfo/TodayInfo';
 import Buscador from '@/components/buscador/Buscador';
+import LoadingView from '@/components/loadingView/LoadingView';
 import Highlights from '@/components/highlights/Highlights';
 
 export default function Home() {
@@ -10,6 +11,8 @@ export default function Home() {
   const [info, setInfo]= useState(null);
   const [temp, setTemp] = useState(0);
   const [loading, setLoading] = useState(true);
+  let lon;
+  let lat;
 
   const date = new Date();
   console.log(date);
@@ -30,8 +33,7 @@ export default function Home() {
   }
 
   useEffect(() => {
-    let lon;
-    let lat;
+    
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         lon = position.coords.longitude;
@@ -53,7 +55,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       {
-        loading ? <h1>Loading... </h1> : <Buscador info={info} fecha={date}/>
+        loading ? <LoadingView /> : <Buscador info={info} fecha={date}/>
       }
     </main>
   )
