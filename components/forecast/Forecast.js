@@ -11,7 +11,7 @@ export default function Forecast({prediccion, fecha}){
 
     let contador= fecha.getDate() + 1;
     
-    
+    let listaPronosticos = []
     pronostico.forEach(element => {
         let dia = fecha.getDate();
         const fechaPronostico = new Date(element.dt_txt);
@@ -20,6 +20,7 @@ export default function Forecast({prediccion, fecha}){
         if(contador==diaPronostico){
             
             console.log(element.dt_txt);
+            listaPronosticos.push(element)
             contador++;
             //console.log(contador)
         }
@@ -27,16 +28,24 @@ export default function Forecast({prediccion, fecha}){
         
        
     });
-
+    let fechaPronostico;
     return(
         <div className={styles.contenedor}>
             <div className={styles.contenedorAdentro}>
-                <ForecastCard />
-                <ForecastCard />
-                <ForecastCard />
-                <ForecastCard />
-                <ForecastCard />
+                {
+                    listaPronosticos.map((item, index) => (
+                        <ForecastCard key = {index} item={item} fecha={fecha}/>
+                    ))
+                }
+                
             </div>
         </div>
     )
 }
+/*
+<ForecastCard />
+                <ForecastCard />
+                <ForecastCard />
+                <ForecastCard />
+                <ForecastCard />
+*/
