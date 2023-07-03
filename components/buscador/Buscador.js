@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Highlights from "../highlights/Highlights";
 import Forecast from "../forecast/Forecast";
+import LoadingView from "../loadingView/LoadingView";
 
 function CloseIcon() {
   return (
@@ -72,7 +73,7 @@ function LocationIcon() {
   );
 }
 
-export default function Buscador({ info, fecha }) {
+export default function Buscador({ info, fecha, prediccion }) {
   //Sirve para mostrar la informacion del buscador y todayInfo
   const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"];
   const months = [
@@ -188,7 +189,8 @@ export default function Buscador({ info, fecha }) {
       <div>
       </div>
       <div className={styles.hlfc}>
-        <Forecast />
+        <Forecast prediccion={prediccion} fecha={fecha}/>
+        
         <Highlights info={info} />
       </div>
 

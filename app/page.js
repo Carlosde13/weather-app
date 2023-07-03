@@ -19,16 +19,28 @@ export default function Home() {
 
   function getInfo(lat, lon){
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=1cbc475882bc69fbb7d7227a36f4f93c&units=metric`
+    const url2 = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=1cbc475882bc69fbb7d7227a36f4f93c`
 
     fetch(url)
       .then(response => response.json())
       .then(data => {
         setInfo(data);
+        
+      })
+      .catch(error => {
+        console.log(error);
+      })
+      fetch(url2)
+      .then(response => response.json())
+      .then(data => {
+        setPrediccion(data);
         setLoading(false);
       })
       .catch(error => {
         console.log(error);
       })
+
+      
   }
   function getPrediccion(lat, lon){
     const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=1cbc475882bc69fbb7d7227a36f4f93c`
@@ -52,7 +64,7 @@ export default function Home() {
 
         console.log(`LON: ${lon}, LAT: ${lat}`)
         getInfo(lat, lon);
-        getPrediccion(lat, lon)
+        //getPrediccion(lat, lon)
       })
     }
   }, [])
@@ -67,7 +79,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       {
-        loading ? <LoadingView /> : <Buscador info={info} fecha={date}/>
+        loading ? <LoadingView /> : <Buscador info={info} fecha={date} prediccion={prediccion}/>
       }
     </main>
   )
