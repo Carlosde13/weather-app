@@ -1,5 +1,5 @@
 import styles from "./Buscador.module.css";
-import TodayInfo from "../todayInfo/TodayInfo";
+import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Highlights from "../highlights/Highlights";
@@ -78,24 +78,20 @@ export default function Buscador() {
   const [loading, setLoading] = useState(true);
   const [prediccion, setPrediccion] = useState(null);
 
-  const[textoBuscador, setTextoBuscador] = useState("");
+  const [textoBuscador, setTextoBuscador] = useState("");
 
-
+  function searchByLocation(){
+    
+  }
   const handleBuscarInput = (event) => {
     event.preventDefault();
     setTextoBuscador(event.target.value);
-  };
-
-  const handleBuscarBoton = (event) => {
-    event.preventDefault();
-    console.log('Texto ingresado:', textoBuscador);
   };
 
   let lon;
   let lat;
 
   const date1 = new Date();
-  console.log(date1);
 
   function getInfo(lat, lon) {
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=1cbc475882bc69fbb7d7227a36f4f93c&units=metric`;
@@ -120,24 +116,50 @@ export default function Buscador() {
       });
   }
 
-  useEffect(() => {
+  function getInfoByCity(city) {
+    if (city == "") return;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=1cbc475882bc69fbb7d7227a36f4f93c&units=metric`;
+
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(`bycity 
+        ${data}`);
+        setInfo(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    const url2 = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=1cbc475882bc69fbb7d7227a36f4f93c&units=metric`;
+
+    fetch(url2)
+      .then((response) => response.json())
+      .then((data) => {
+        setPrediccion(data);
+        setLoading(false);
+        SearchForPlacesButtons();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  function accederUbicacionActual(){
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         lon = position.coords.longitude;
         lat = position.coords.latitude;
 
-        console.log(`LON: ${lon}, LAT: ${lat}`);
         getInfo(lat, lon);
-        //getPrediccion(lat, lon)
       });
     }
+  }
+  useEffect(() => {
+    accederUbicacionActual();
   }, []);
 
   useEffect(() => {
     // Acciones a realizar después de que 'info' se haya actualizado
-    console.log(info);
     console.log(loading);
-    console.log(prediccion);
   }, [info, prediccion]);
 
   //aqui se acaba lo que viene de page.js
@@ -169,7 +191,6 @@ export default function Buscador() {
   const dia = date1.getDay();
   const mes = date1.getMonth();
 
-  //console.log(info.weather[0].main)
   let clase;
   if (mostrarBuscador == true) clase = styles.buscador;
   if (mostrarBuscador == false) clase = styles.buscadorOculto;
@@ -190,7 +211,10 @@ export default function Buscador() {
     if (descripcionClima == "Haze") imagenClima = "/Haze.png";
     if (descripcionClima == "Dust") imagenClima = "/Dust1.png";
   }
-
+  
+  function recargar(){
+    router.reload();
+  }
   return loading ? (
     <LoadingView />
   ) : (
@@ -204,9 +228,18 @@ export default function Buscador() {
             <div>
               <SearchIcon />
             </div>
-            <input placeholder="search location" onBlur={handleBuscarInput}></input>
+            <input
+              placeholder="search location"
+              onBlur={handleBuscarInput}
+            ></input>
           </div>
-          <button onClick={handleBuscarBoton}>Search</button>
+          <button
+            onClick={() => {
+              getInfoByCity(textoBuscador);
+            }}
+          >
+            Search
+          </button>
         </div>
         <div className={styles.opcionDiv}>
           <p>London</p>
@@ -227,7 +260,7 @@ export default function Buscador() {
           <button className={styles.boton} onClick={SearchForPlacesButtons}>
             Search for places
           </button>
-          <div className={styles.iconoUbicacionDiv}>
+          <div className={styles.iconoUbicacionDiv} onClick={accederUbicacionActual}>
             <LocationTargetIcon />
           </div>
         </div>
