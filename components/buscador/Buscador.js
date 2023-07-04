@@ -76,6 +76,7 @@ export default function Buscador() {
   const [info, setInfo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [prediccion, setPrediccion] = useState(null);
+  const [alerta, setAlerta] = useState(false);
 
   const [textoBuscador, setTextoBuscador] = useState("");
 
@@ -106,6 +107,7 @@ export default function Buscador() {
       .then((data) => {
         setPrediccion(data);
         setLoading(false);
+        setAlerta(false);
       })
       .catch((error) => {
         console.log(error);
@@ -114,32 +116,49 @@ export default function Buscador() {
 
   function getInfoByCity(city) {
     if (city == "") return;
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=1cbc475882bc69fbb7d7227a36f4f93c&units=metric`;
+    try {
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=1cbc475882bc69fbb7d7227a36f4f93c&units=metric`;
 
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        //if(data.cod == "404") return
-        setInfo(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    const url2 = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=1cbc475882bc69fbb7d7227a36f4f93c&units=metric`;
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          console.log(data.cod);
+          if (data.cod == 200) {
+            setAlerta(false);
+            setInfo(data);
+          } else if (data.cod == "404") {
+            setAlerta(true);
+            return "";
+          }
+          //if(data.cod == "404") return
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      const url2 = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=1cbc475882bc69fbb7d7227a36f4f93c&units=metric`;
 
-    fetch(url2)
-      .then((response) => response.json())
-      .then((data) => {
-        setPrediccion(data);
-        setLoading(false);
-        SearchForPlacesButtons();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      fetch(url2)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.cod == 200) {
+            setPrediccion(data);
+            setLoading(false);
+            SearchForPlacesButtons();
+            setAlerta(false);
+          } else if (data.cod == "404") {
+            setAlerta(true);
+            return "";
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(`ERROR ${error.message}`);
+    }
   }
-  function accederUbicacionActual(){
+  function accederUbicacionActual() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         lon = position.coords.longitude;
@@ -207,7 +226,7 @@ export default function Buscador() {
     if (descripcionClima == "Haze") imagenClima = "/Haze.png";
     if (descripcionClima == "Dust") imagenClima = "/Dust1.png";
   }
-  
+
   return loading ? (
     <LoadingView />
   ) : (
@@ -234,26 +253,50 @@ export default function Buscador() {
             Search
           </button>
         </div>
-        <div className={styles.opcionDiv} onClick={()=>{getInfoByCity("London")}}>
+        <div
+          className={styles.opcionDiv}
+          onClick={() => {
+            getInfoByCity("London");
+          }}
+        >
           <p>London</p>
           <ForwardIcon />
         </div>
-        <div className={styles.opcionDiv} onClick={()=>{getInfoByCity("Barcelona")}}>
+        <div
+          className={styles.opcionDiv}
+          onClick={() => {
+            getInfoByCity("Barcelona");
+          }}
+        >
           <p>Barcelona</p>
           <ForwardIcon />
         </div>
-        <div className={styles.opcionDiv} onClick={()=>{getInfoByCity("Long Beach")}}>
+        <div
+          className={styles.opcionDiv}
+          onClick={() => {
+            getInfoByCity("Long Beach");
+          }}
+        >
           <p>Long Beach</p>
           <ForwardIcon />
         </div>
+        {alerta ? (
+          <p className={styles.alerta}>The City Wasn't Found</p>
+        ) : (
+          <></>
+        )}
       </div>
+
       {/*<TodayInfo info={info} fecha={fecha}/>*/}
       <div className={styles.todayInfo}>
         <div className={styles.metodoBusqueda}>
           <button className={styles.boton} onClick={SearchForPlacesButtons}>
             Search for places
           </button>
-          <div className={styles.iconoUbicacionDiv} onClick={accederUbicacionActual}>
+          <div
+            className={styles.iconoUbicacionDiv}
+            onClick={accederUbicacionActual}
+          >
             <LocationTargetIcon />
           </div>
         </div>
