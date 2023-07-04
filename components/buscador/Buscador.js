@@ -1,5 +1,4 @@
 import styles from "./Buscador.module.css";
-import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Highlights from "../highlights/Highlights";
@@ -80,9 +79,6 @@ export default function Buscador() {
 
   const [textoBuscador, setTextoBuscador] = useState("");
 
-  function searchByLocation(){
-    
-  }
   const handleBuscarInput = (event) => {
     event.preventDefault();
     setTextoBuscador(event.target.value);
@@ -123,8 +119,8 @@ export default function Buscador() {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        console.log(`bycity 
-        ${data}`);
+        console.log(data);
+        //if(data.cod == "404") return
         setInfo(data);
       })
       .catch((error) => {
@@ -212,9 +208,6 @@ export default function Buscador() {
     if (descripcionClima == "Dust") imagenClima = "/Dust1.png";
   }
   
-  function recargar(){
-    router.reload();
-  }
   return loading ? (
     <LoadingView />
   ) : (
@@ -241,15 +234,15 @@ export default function Buscador() {
             Search
           </button>
         </div>
-        <div className={styles.opcionDiv}>
+        <div className={styles.opcionDiv} onClick={()=>{getInfoByCity("London")}}>
           <p>London</p>
           <ForwardIcon />
         </div>
-        <div className={styles.opcionDiv}>
+        <div className={styles.opcionDiv} onClick={()=>{getInfoByCity("Barcelona")}}>
           <p>Barcelona</p>
           <ForwardIcon />
         </div>
-        <div className={styles.opcionDiv}>
+        <div className={styles.opcionDiv} onClick={()=>{getInfoByCity("Long Beach")}}>
           <p>Long Beach</p>
           <ForwardIcon />
         </div>
