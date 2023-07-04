@@ -29,7 +29,7 @@
 
     position: fixed;
 
-    transform-origin: top bottom; /* Define el punto de origen de la transformación */
+    transform-origin: left ; /* Define el punto de origen de la transformación */
     transform: scale(1);
     transition: 0.3s ease-in-out; 
 }
@@ -251,7 +251,7 @@
     text-align: center;
 }
 
-@media screen and (min-width: 768px){
+@media screen and (min-width: 900px){
     .buscador{
         width: 25%;
         height: 100vh;
