@@ -15,7 +15,6 @@ function NavigationIcon({}) {
 
 export default function Highlights({ info }) {
   let humedad = info.main.humidity;
-  let visibility = parseInt(info.visibility) / 1000;
 
   
   function obtenerDireccionViento(grados) {
@@ -52,6 +51,7 @@ export default function Highlights({ info }) {
   }
   const grados = info.wind.deg;
   const iniciales = obtenerDireccionViento(grados);
+  const visibility = parseInt((info.visibility * 1)/(1609.34));
 
   const speed = parseInt((info.wind.speed * 1 * 3600)/ (1609.36 * 1));
   return (
