@@ -52,6 +52,8 @@ export default function Highlights({ info }) {
   }
   const grados = info.wind.deg;
   const iniciales = obtenerDireccionViento(grados);
+
+  const speed = parseInt((info.wind.speed * 1 * 3600)/ (1609.36 * 1));
   return (
     <>
       <div className={styles.contenedor}>
@@ -62,7 +64,7 @@ export default function Highlights({ info }) {
           <div className={styles.wind}>
             <h4>Wind Status</h4>
             <div className={styles.windResults}>
-              <h3>{parseInt(info.wind.speed)}</h3>
+              <h3>{speed}</h3>
               <p>mph</p>
             </div>
             <div className={styles.windResults}>
