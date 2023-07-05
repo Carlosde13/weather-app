@@ -23,11 +23,12 @@
 
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     gap:5px;
 
     position: fixed;
+    z-index: 9999;
 
     transform-origin: left ; /* Define el punto de origen de la transformación */
     transform: scale(1);
