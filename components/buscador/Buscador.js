@@ -145,6 +145,7 @@ export default function Buscador() {
             setPrediccion(data);
             setLoading(false);
             SearchForPlacesButtons();
+            setTextoBuscador("");
             setAlerta(false);
           } else if (data.cod == "404") {
             setAlerta(true);
@@ -241,8 +242,9 @@ export default function Buscador() {
               <SearchIcon />
             </div>
             <input
+              value={textoBuscador}
               placeholder="search location"
-              onBlur={handleBuscarInput}
+              onInput={handleBuscarInput}
             ></input>
           </div>
           <button
